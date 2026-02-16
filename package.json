@@ -1,0 +1,46 @@
+{
+	"name": "memcheck-node",
+	"version": "0.0.0-development",
+	"description": "Automated memory leak regression testing for Node.js — detect growing object graphs in CI",
+	"license": "MIT",
+	"repository": "mstuart/memcheck-node",
+	"author": {
+		"name": "Mark Stuart",
+		"email": "mstuart@users.noreply.github.com",
+		"url": "https://github.com/mstuart"
+	},
+	"type": "module",
+	"exports": {
+		".": {
+			"types": "./index.d.ts",
+			"default": "./index.js"
+		}
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=20"
+	},
+	"scripts": {
+		"test": "xo && ava && tsd"
+	},
+	"keywords": [
+		"memory",
+		"leak",
+		"detect",
+		"test",
+		"ci",
+		"heap",
+		"snapshot",
+		"regression",
+		"v8",
+		"gc"
+	],
+	"dependencies": {
+		"mem-pressure": "^0.0.0-development"
+	},
+	"devDependencies": {
+		"ava": "^6",
+		"tsd": "^0.31",
+		"xo": "^0.60"
+	}
+}
