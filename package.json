@@ -1,6 +1,6 @@
 {
 	"name": "memcheck-node",
-	"version": "0.0.0-development",
+	"version": "1.0.0",
 	"description": "Automated memory leak regression testing for Node.js — detect growing object graphs in CI",
 	"license": "MIT",
 	"repository": "mstuart/memcheck-node",
