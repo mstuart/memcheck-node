@@ -17,9 +17,9 @@ test('memcheck result has correct shape', async t => {
 		Math.random();
 	}, {iterations: 3});
 
-	t.truthy('leaked' in result);
-	t.truthy('snapshots' in result);
-	t.truthy('growth' in result);
+	t.true('leaked' in result);
+	t.true('snapshots' in result);
+	t.true('growth' in result);
 });
 
 test('memcheck snapshots array has correct length', async t => {

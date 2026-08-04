@@ -70,11 +70,11 @@ export default async function memcheck(scenario, options = {}) {
 		}
 	}
 
-	const consistentGrowth = growingCount > snapshots.length / 2;
-	const leaked = consistentGrowth && growth > allowedGrowth;
+	const hasConsistentGrowth = growingCount > snapshots.length / 2;
+	const hasLeak = hasConsistentGrowth && growth > allowedGrowth;
 
 	return {
-		leaked,
+		leaked: hasLeak,
 		snapshots,
 		growth,
 	};
