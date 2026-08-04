@@ -104,9 +104,7 @@ export async function assertNoLeaks(scenario, options = {}) {
 	const result = await memcheck(scenario, options);
 
 	if (result.leaked) {
-		throw new Error(
-			`Memory leak detected: heap grew by ${(result.growth * 100).toFixed(2)}% over ${result.snapshots.length - 1} iterations`,
-		);
+		throw new Error(`Memory leak detected: heap grew by ${(result.growth * 100).toFixed(2)}% over ${result.snapshots.length - 1} iterations`);
 	}
 
 	return result;

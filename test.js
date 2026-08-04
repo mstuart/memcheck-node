@@ -24,14 +24,14 @@ test('memcheck result has correct shape', async t => {
 
 test('memcheck snapshots array has correct length', async t => {
 	const iterations = 4;
-	const result = await memcheck(() => {}, {iterations});
+	const result = await memcheck(() => undefined, {iterations});
 
 	// Iterations + 1 (initial snapshot)
 	t.is(result.snapshots.length, iterations + 1);
 });
 
 test('memcheck snapshots have correct iteration numbers', async t => {
-	const result = await memcheck(() => {}, {iterations: 3});
+	const result = await memcheck(() => undefined, {iterations: 3});
 
 	t.is(result.snapshots[0].iteration, 0);
 	t.is(result.snapshots[1].iteration, 1);
@@ -40,12 +40,12 @@ test('memcheck snapshots have correct iteration numbers', async t => {
 });
 
 test('memcheck growth is a number', async t => {
-	const result = await memcheck(() => {}, {iterations: 3});
+	const result = await memcheck(() => undefined, {iterations: 3});
 	t.is(typeof result.growth, 'number');
 });
 
 test('memcheck snapshots have usedHeapSize', async t => {
-	const result = await memcheck(() => {}, {iterations: 2});
+	const result = await memcheck(() => undefined, {iterations: 2});
 
 	for (const snapshot of result.snapshots) {
 		t.is(typeof snapshot.usedHeapSize, 'number');
@@ -54,7 +54,7 @@ test('memcheck snapshots have usedHeapSize', async t => {
 });
 
 test('memcheck snapshots have totalHeapSize', async t => {
-	const result = await memcheck(() => {}, {iterations: 2});
+	const result = await memcheck(() => undefined, {iterations: 2});
 
 	for (const snapshot of result.snapshots) {
 		t.is(typeof snapshot.totalHeapSize, 'number');
@@ -76,13 +76,13 @@ test('memcheck works with async scenario', async t => {
 // Memcheck options
 
 test('memcheck uses default options', async t => {
-	const result = await memcheck(() => {});
+	const result = await memcheck(() => undefined);
 	t.truthy(result);
 	t.is(result.snapshots.length, 6); // 5 iterations + initial
 });
 
 test('memcheck respects gcBetweenIterations=false', async t => {
-	const result = await memcheck(() => {}, {
+	const result = await memcheck(() => undefined, {
 		iterations: 2,
 		gcBetweenIterations: false,
 	});
@@ -91,7 +91,7 @@ test('memcheck respects gcBetweenIterations=false', async t => {
 });
 
 test('memcheck respects custom allowedGrowth', async t => {
-	const result = await memcheck(() => {}, {
+	const result = await memcheck(() => undefined, {
 		iterations: 2,
 		allowedGrowth: 0.5,
 	});
@@ -102,7 +102,7 @@ test('memcheck respects custom allowedGrowth', async t => {
 // FormatReport
 
 test('formatReport returns a string', async t => {
-	const result = await memcheck(() => {}, {iterations: 2});
+	const result = await memcheck(() => undefined, {iterations: 2});
 	const report = formatReport(result);
 
 	t.is(typeof report, 'string');
@@ -110,7 +110,7 @@ test('formatReport returns a string', async t => {
 });
 
 test('formatReport includes header', async t => {
-	const result = await memcheck(() => {}, {iterations: 2});
+	const result = await memcheck(() => undefined, {iterations: 2});
 	const report = formatReport(result);
 
 	t.true(report.includes('Memory Check Report'));
@@ -121,6 +121,7 @@ test('formatReport shows CLEAN for non-leaking scenario', async t => {
 		Math.random();
 	}, {iterations: 2});
 
+	t.plan(1);
 	if (result.leaked) {
 		t.pass();
 	} else {
@@ -130,7 +131,7 @@ test('formatReport shows CLEAN for non-leaking scenario', async t => {
 });
 
 test('formatReport includes growth percentage', async t => {
-	const result = await memcheck(() => {}, {iterations: 2});
+	const result = await memcheck(() => undefined, {iterations: 2});
 	const report = formatReport(result);
 
 	t.true(report.includes('Growth:'));
@@ -138,7 +139,7 @@ test('formatReport includes growth percentage', async t => {
 });
 
 test('formatReport includes snapshots section', async t => {
-	const result = await memcheck(() => {}, {iterations: 2});
+	const result = await memcheck(() => undefined, {iterations: 2});
 	const report = formatReport(result);
 
 	t.true(report.includes('Snapshots:'));
@@ -171,7 +172,7 @@ test('assertNoLeaks does not throw for clean scenario', async t => {
 });
 
 test('assertNoLeaks returns result for clean scenario', async t => {
-	const result = await assertNoLeaks(() => {}, {iterations: 2});
+	const result = await assertNoLeaks(() => undefined, {iterations: 2});
 	t.truthy(result);
 	t.is(typeof result.leaked, 'boolean');
 	t.truthy(result.snapshots);
@@ -190,7 +191,7 @@ test('memcheck handles scenario that allocates and releases', async t => {
 });
 
 test('memcheck with single iteration', async t => {
-	const result = await memcheck(() => {}, {iterations: 1});
+	const result = await memcheck(() => undefined, {iterations: 1});
 
 	t.is(result.snapshots.length, 2);
 	t.is(typeof result.leaked, 'boolean');

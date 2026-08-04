@@ -39,7 +39,7 @@
 		"mem-pressure": "^1.0.0"
 	},
 	"devDependencies": {
-		"ava": "^8",
+		"ava": "^7",
 		"tsd": "^0.33",
 		"xo": "^2.0"
 	}
