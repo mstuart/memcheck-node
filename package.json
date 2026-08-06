@@ -1,7 +1,7 @@
 {
 	"name": "memcheck-node",
 	"version": "1.0.0",
-	"description": "Automated memory leak regression testing for Node.js — detect growing object graphs in CI",
+	"description": "Automated memory leak regression testing for Node.js \u2014 detect growing object graphs in CI",
 	"license": "MIT",
 	"repository": "mstuart/memcheck-node",
 	"author": {
@@ -42,5 +42,16 @@
 		"ava": "^8",
 		"tsd": "^0.33",
 		"xo": "^2.0"
+	},
+	"xo": {
+		"rules": {
+			"@stylistic/curly-newline": [
+				"error",
+				{
+					"multiline": true,
+					"consistent": true
+				}
+			]
+		}
 	}
 }

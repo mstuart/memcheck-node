@@ -122,7 +122,7 @@ test('formatReport shows CLEAN for non-leaking scenario', async t => {
 	}, {iterations: 2});
 
 	if (result.leaked) {
-		t.pass();
+		t.true(result.leaked);
 	} else {
 		const report = formatReport(result);
 		t.true(report.includes('CLEAN'));
