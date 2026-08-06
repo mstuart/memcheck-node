@@ -1,7 +1,16 @@
-# memcheck-node
+<div align="center">
+  <img src="docs/assets/logo.svg" alt="memcheck-node — Automated memory leak regression testing for Node.js" width="720">
+</div>
 
-> Automated memory leak regression testing for Node.js — detect growing object graphs in CI
+<p align="center"><strong>Automated memory leak regression testing for Node.js</strong></p>
 
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="https://www.npmjs.com/package/memcheck-node"><img src="https://img.shields.io/npm/v/memcheck-node?label=npm" alt="npm"></a>
+  <img src="https://img.shields.io/badge/node-%E2%89%A520-339933.svg" alt="Node 20+">
+</p>
+
+---
 ## Install
 
 ```sh
