@@ -1,44 +1,41 @@
-export type Snapshot = {
-	/** Used heap size in bytes. */
-	readonly usedHeapSize: number;
+export interface Snapshot {
+  /** Iteration number (0 = initial). */
+  readonly iteration: number;
 
-	/** Total heap size in bytes. */
-	readonly totalHeapSize: number;
+  /** Total heap size in bytes. */
+  readonly totalHeapSize: number;
+  /** Used heap size in bytes. */
+  readonly usedHeapSize: number;
+}
 
-	/** Iteration number (0 = initial). */
-	readonly iteration: number;
-};
+export interface MemcheckResult {
+  /** Percentage growth as a decimal (e.g., 0.1 = 10%). */
+  readonly growth: number;
+  /** Whether a memory leak was detected. */
+  readonly leaked: boolean;
 
-export type MemcheckResult = {
-	/** Whether a memory leak was detected. */
-	readonly leaked: boolean;
+  /** Array of heap snapshots taken during the check. */
+  readonly snapshots: Snapshot[];
+}
 
-	/** Array of heap snapshots taken during the check. */
-	readonly snapshots: Snapshot[];
-
-	/** Percentage growth as a decimal (e.g., 0.1 = 10%). */
-	readonly growth: number;
-};
-
-export type MemcheckOptions = {
-	/**
-	Number of snapshot cycles to run.
-	@default 5
-	*/
-	readonly iterations?: number;
-
-	/**
-	Force garbage collection between iterations (requires `--expose-gc` or `global.gc` to be available).
-	@default true
-	*/
-	readonly gcBetweenIterations?: boolean;
-
-	/**
+export interface MemcheckOptions {
+  /**
 	Maximum allowed heap growth as a decimal (e.g., 0.1 = 10%).
 	@default 0.1
 	*/
-	readonly allowedGrowth?: number;
-};
+  readonly allowedGrowth?: number;
+
+  /**
+	Force garbage collection between iterations (requires `--expose-gc` or `global.gc` to be available).
+	@default true
+	*/
+  readonly gcBetweenIterations?: boolean;
+  /**
+	Number of snapshot cycles to run.
+	@default 5
+	*/
+  readonly iterations?: number;
+}
 
 /**
 Run a scenario function multiple times and detect memory leaks by monitoring heap growth.
@@ -60,7 +57,10 @@ console.log(result.leaked);
 // => false
 ```
 */
-export default function memcheck(scenario: () => Promise<void> | void, options?: MemcheckOptions): Promise<MemcheckResult>;
+export default function memcheck(
+  scenario: () => Promise<void> | void,
+  options?: MemcheckOptions
+): Promise<MemcheckResult>;
 
 /**
 Format a memcheck result as a human-readable report.
@@ -95,4 +95,7 @@ await assertNoLeaks(async () => {
 });
 ```
 */
-export function assertNoLeaks(scenario: () => Promise<void> | void, options?: MemcheckOptions): Promise<MemcheckResult>;
+export function assertNoLeaks(
+  scenario: () => Promise<void> | void,
+  options?: MemcheckOptions
+): Promise<MemcheckResult>;
