@@ -20,7 +20,7 @@ export interface MemcheckResult {
 
 export interface MemcheckOptions {
   /**
-	Maximum allowed heap growth as a decimal (e.g., 0.1 = 10%).
+	Maximum allowed heap growth as a finite non-negative decimal (e.g., 0.1 = 10%).
 	@default 0.1
 	*/
   readonly allowedGrowth?: number;
@@ -31,7 +31,7 @@ export interface MemcheckOptions {
 	*/
   readonly gcBetweenIterations?: boolean;
   /**
-	Number of snapshot cycles to run.
+	Number of snapshot cycles to run. Must be a positive safe integer.
 	@default 5
 	*/
   readonly iterations?: number;
