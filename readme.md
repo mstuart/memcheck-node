@@ -68,7 +68,7 @@ A function that performs the operation to test.
 Type: `number`\
 Default: `5`
 
-Number of snapshot cycles to run.
+Number of snapshot cycles to run. Must be a positive safe integer. Invalid values are rejected before the scenario runs.
 
 ##### gcBetweenIterations
 
@@ -82,7 +82,7 @@ Force garbage collection between iterations. Requires `--expose-gc` flag or `glo
 Type: `number`\
 Default: `0.1`
 
-Maximum allowed heap growth as a decimal (0.1 = 10%).
+Maximum allowed heap growth as a finite non-negative decimal (0.1 = 10%). Invalid values are rejected before the scenario runs.
 
 #### Return value
 

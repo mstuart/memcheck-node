@@ -21,6 +21,13 @@ export default async function memcheck(scenario, options = {}) {
     allowedGrowth = 0.1,
   } = options;
 
+  if (!Number.isSafeInteger(iterations) || iterations <= 0) {
+    throw new TypeError("`iterations` must be a positive safe integer");
+  }
+  if (!Number.isFinite(allowedGrowth) || allowedGrowth < 0) {
+    throw new TypeError("`allowedGrowth` must be a finite non-negative number");
+  }
+
   // Warmup: run scenario a few times to stabilize
   for (let i = 0; i < 3; i += 1) {
     // biome-ignore lint/performance/noAwaitInLoops: Warmup scenarios must run sequentially.
@@ -72,7 +79,8 @@ export default async function memcheck(scenario, options = {}) {
     }
   }
 
-  const consistentGrowth = growingCount > snapshots.length / 2;
+  const measurementCount = snapshots.length - 1;
+  const consistentGrowth = growingCount > measurementCount / 2;
   const leaked = consistentGrowth && growth > allowedGrowth;
 
   return {
